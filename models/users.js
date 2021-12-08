@@ -50,7 +50,7 @@ User.init(
         timestamps: false,
         freezeTableNames: true,
         underscored: true,
-        modelName: 'user',
+        modelName: 'User',
     }
 )
 

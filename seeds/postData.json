@@ -2,6 +2,8 @@
     {
         "PostId": 1,
         "username": "QuentinHnilica",
-        "PostContent": "Hello World"
+        "PostContent": "Hello World",
+        "subject": "first Post",
+        "date": "12/2021"
     }
 ]

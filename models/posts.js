@@ -19,6 +19,14 @@ Posts.init(
         PostContent:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        subject:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        date: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     },
     {
