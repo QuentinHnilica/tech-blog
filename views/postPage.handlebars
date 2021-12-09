@@ -1,0 +1,42 @@
+<section>
+    <div class="container">
+        <div class="row align-start">
+            <div class="col-1"></div>
+            <div class="col-10" id="postHere">
+                
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row align-start">
+            <div class="col-2"></div>
+            <div class="col-8" id="postReplyHere">
+                
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    {{#if logged_in}}
+    <div style="text-align: center;">
+        <div class = "d-flex align-items-start flex-column m-3">          
+        </div>
+        <div class="form-floating" style=" width: 40%; margin: auto;" id="commentBox">
+                <textarea class="form-control logBod" placeholder="Leave a comment here" id="yourPost" style="height: 100px;"></textarea>
+                <label for="floatingTextarea2" style="margin: auto; color:white;">Comments</label>
+        </div>
+        <!-- bottom of sub-box -->
+
+        <div class = "d-flex justify-content-between m-3" id="commentButton">
+            <div style="justify-content: flex-end; margin: auto;">
+                <button class = "btn btn-primary" id="submitPost">Comment</button>
+            </div>
+        </div>
+    </div>
+    {{else}}
+    <button class="hidden" id="reply">login to reply</button>
+    {{/if}}
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="assets/js/posts.js"></script>

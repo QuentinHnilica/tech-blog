@@ -1,11 +1,14 @@
 const router = require('express').Router();
+const postRoutes = require('./postRoutes')
 
 const {posts, Users} = require('../models')
 
+router.use('/post', postRoutes)
+
 router.get('/', async(req, res) =>{
-    console.log(req.session)
     res.render('home',{
-        logged_in: req.session.logged_in
+        logged_in: req.session.logged_in,
+        username: req.session.username
     })
 })
 
@@ -35,6 +38,7 @@ router.post('/login/atmpt', async(req, res) =>{
     
         req.session.save(() => {
             req.session.user_id = userData.id
+            req.session.username = userData.username
             req.session.logged_in = true;
             res.json({ user: userData, message: 'You are now logged in!' });
         })
@@ -57,7 +61,8 @@ router.post('/logout', (req, res) => {
 
 router.get('/signup', async(req, res) => {
     res.render('signUp',{
-        logged_in: req.session.logged_in
+        logged_in: req.session.logged_in,
+        username: req.session.username
     })
 });
 
@@ -87,5 +92,27 @@ router.get('/homeposts', async(req,res) =>{
         res.status(err)
     }
 })
+
+router.get('/dashboard', async(req, res) => {
+    res.render('dashboard',{
+        logged_in: req.session.logged_in,
+        username: req.session.username
+    })
+})
+
+router.get('/myPosts', async(req, res) => {
+    try{
+        console.log(req.session.username)
+        const myPosts = await posts.findAll({
+            where: {username: req.session.username}
+        })
+        res.status(200).json(myPosts)
+    }
+    catch(err){
+        res.status(err)
+    }
+})
+
+
 
 module.exports = router;
