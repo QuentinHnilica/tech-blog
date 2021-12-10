@@ -62,7 +62,7 @@ router.post('/logout', (req, res) => {
 router.get('/signup', async(req, res) => {
     res.render('signUp',{
         logged_in: req.session.logged_in,
-        username: req.session.username
+        username: req.session.username,
     })
 });
 
@@ -74,6 +74,7 @@ router.post('/subSignUp', async(req, res) => {
         req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
+        req.session.username = userData.username
 
         res.status(200).json(userData);
     })
@@ -107,6 +108,16 @@ router.get('/myPosts', async(req, res) => {
             where: {username: req.session.username}
         })
         res.status(200).json(myPosts)
+    }
+    catch(err){
+        res.status(err)
+    }
+})
+
+router.post('/newPost', async(req, res) =>{
+    try{
+        const newPost = await posts.create(req.body)
+        res.status(200).json(newPost)
     }
     catch(err){
         res.status(err)

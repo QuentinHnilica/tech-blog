@@ -9,16 +9,19 @@ const start = async () => {
                 let date = data[i].date
                 let subject = data[i].subject
                 let content = data[i].PostContent
+                let id = data[i].PostId
 
                 let postHTML = 
                 `<section class = "border m-4">
-                    <div class = "postHead">          
-                        <h3 id="subject">${subject}</h3>
-                        <p id="userTime">${user}  ${date}</p>
-                    </div>
-                    <div>
-                        <p style="color: white;" id="content">${content} </p>
-                    </div>
+                    <button class="btn no-button" style="width: 100%;" onClick="goToPage(${id})"">
+                        <div class = "postHead">          
+                            <h3 id="subject">${subject}</h3>
+                            <p id="userTime">${user}  ${date}</p>
+                        </div>
+                        <div>
+                            <p style="color: white;" id="content">${content} </p>
+                        </div>
+                    </button>
                 </section>`
                 $('#postHere').append(postHTML)
             }
@@ -30,9 +33,6 @@ const start = async () => {
 }
 
 start()
-
-
-const testbutton = document.getElementById('test')
 
 const test = async () => {
     const testResponse = await fetch('/test',{
@@ -49,4 +49,11 @@ const test = async () => {
     }
 }
 
-testbutton.addEventListener('click', test)
+const goToPage = async (id) => {
+    const response = await fetch('/post/op/' +id,{
+        mothod: "GET"
+    })
+    if (response.ok){
+        document.location.replace('/post')
+    }
+}

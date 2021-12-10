@@ -3,6 +3,7 @@ let OPID
 let OPSub
 let comment
 
+let thisUser
 const getReplys = async () => {
     const response = await fetch('/post/getReplys', {
         method: "GET"
@@ -66,9 +67,9 @@ const start = async () => {
 start()
 
 const makeReply = async (currUser) => {
+    thisUser=currUser
     const date = new Date()
     const timeStamp = date.toDateString()
-    console.log(currUser)
     const theReply = {
         username: currUser,
         PostContent: comment,
@@ -91,20 +92,23 @@ const makeReply = async (currUser) => {
 
 
 const getCurrUser = async () => {
-    comment = document.querySelector('#yourPost').value.trim()
+    if(document.querySelector('#yourPost') != null){
+        comment = document.querySelector('#yourPost').value.trim()
 
-    const response = await fetch('/post/getCurrUser', {
-        method: "GET"
-    })
-    if (response.ok){
-        response.json().then(function(data){
-            console.log(data)
-            const currUser = data
-            makeReply(currUser)
+        const response = await fetch('/post/getCurrUser', {
+            method: "GET"
         })
+        if (response.ok){
+            response.json().then(function(data){
+                console.log(data)
+                const currUser = data
+                makeReply(currUser)
+            })
+        }
     }
-    
-    
+    else{
+        window.location.replace('/login')
+    }
 }
 
 reply.addEventListener('click', getCurrUser)
