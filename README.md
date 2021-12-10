@@ -15,9 +15,9 @@
 
   ## Installation
   npm i
-
-  ## Test
-  npm test
+  
+  ![image](Home.png)
+  ![image](Dashboard.png)
 
   ## Usage
   1. Click login on the taskbar and login (or hit signup to make an account)
