@@ -62,7 +62,7 @@ router.post('/logout', (req, res) => {
 router.get('/signup', async(req, res) => {
     res.render('signUp',{
         logged_in: req.session.logged_in,
-        username: req.session.username,
+        //username: req.session.username,
     })
 });
 
