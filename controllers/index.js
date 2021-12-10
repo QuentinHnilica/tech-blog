@@ -60,9 +60,9 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/signup', async(req, res) => {
-    res.render('signUp',{
+    res.render('signup',{
         logged_in: req.session.logged_in,
-        //username: req.session.username,
+        username: req.session.username,
     })
 });
 
