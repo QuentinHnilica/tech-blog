@@ -13,7 +13,7 @@
         <div class="row align-start">
             <div class="col-2"></div>
             <div class="col-8" id="postHere">
-                <div style="border: 2px solid white;">
+                <div style="border: 2px solid white; ">
                     <div class = "d-flex align-items-start flex-column m-3">          
                     </div>
                     <div class="mb-3">
@@ -38,6 +38,34 @@
     </div>
     
 </section>
+
+<div class="modal" tabindex="-1" id="makeEdit">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: rgba(119, 23, 23, 0.801);">
+      <div class = "m-3" style="background-color: rgba(80, 9, 9, 0.801);">          
+                    
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label" style="color: white;">Subject</label>
+            <input type="text" class="form-control" id="updatedSubject" style="background-color: rgb(103, 119, 119); color: white;">
+        </div>
+        <div class="form-floating" style="margin: auto;">
+            <textarea class="form-control " placeholder="Leave a comment here" id="updatedPost" style="height: 100px; background-color: rgb(103, 119, 119); color: white;"></textarea>
+            <label for="floatingTextarea2" style="margin: auto; color:white;">MakePost</label>
+        </div>
+        <!-- bottom of sub-box -->
+
+        <div class = "d-flex justify-content-between m-3">
+            <div style="justify-content: flex-end; margin: auto;">
+                <button class = "btn btn-primary" id="submitEdit">Edit Post</button>
+                <button class = "btn btn-secondary" id="closeMod">Close</button>
+            </div>
+            <div>
+                <p style="display: none;" id="saveId"></p>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="assets/js/dashboard.js"></script>

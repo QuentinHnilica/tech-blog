@@ -1,5 +1,12 @@
 let thisUser
 const newPost = document.getElementById('submitPost')
+const closeMod = document.getElementById('closeMod')
+const submitEdit = document.getElementById('submitEdit')
+const updatedPost = document.getElementById('updatedPost')
+const updatedSubject = document.getElementById('updatedSubject')
+const saveId = document.getElementById('saveId')
+
+let oldPostDate
 
 const goToPage = async (id) => {
     const response = await fetch('/post/op/' +id,{
@@ -50,8 +57,8 @@ const start = async () => {
                             <div class="col-9"></div>
                             <div class="col-3">
                                 <div style="text-align: center;">
-                                <button class="btn btn-primary" onClick="editPost">edit</button>
-                                <button class="btn btn-primary" onClick="deletePost">delete</button>
+                                <button class="btn btn-primary" onClick="editPost(${id})">edit</button>
+                                <button class="btn btn-primary" onClick="deletePost(${id})">delete</button>
                                 </div>
                             </div>
                         </div>
@@ -94,14 +101,69 @@ const makePost = async () => {
     }
 }
 
-const editPost = async () => {
+const editPost = async (id) =>{
+    console.log(id)
+    const response = await fetch('/post/postInfo/' + id, {
+        method: "GET"
+    })
+    if (response.ok){
+        response.json().then(function(data){
+            updatedSubject.value = data.subject
+            updatedPost.value = data.PostContent
+            saveId.innerText = id
+            oldPostDate = data.date
+            document.getElementById('makeEdit').style = "display: block;"
+        })
+        
+    }
 
-}
-
-const deletePost = async () => {
     
 }
 
+const deleteReplies = async (id) => {
+    const response = await fetch('/post/deleteReplies/' + id,{
+        method: "DELETE"
+    })
+    if (response.ok){
+        window.location.reload()
+    }
+}
+
+const deletePost = async (id) => {
+    const response = await fetch('/post/deletePost/' +id,{
+        method: "DELETE"
+    })
+    if (response.ok){
+        console.log('deleted')
+        deleteReplies(id)
+    }
+}
+
+function closeEdit(){
+    document.getElementById('makeEdit').style = "display: none;"
+}
+
+const makeEdit = async () => {
+    const postId = parseInt(saveId.innerText)
+    const newUpdate = {
+        PostId: postId,
+        username: thisUser,
+        subject: updatedSubject.value.trim(),
+        PostContent: updatedPost.value.trim(),
+        date: oldPostDate
+    }
+    const response = await fetch('/post/upDate/' + postId,{
+        method: "POST",
+        body: JSON.stringify(newUpdate),
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (response.ok){
+        window.location.reload()
+    }
+}
 
 
+submitEdit.addEventListener('click', makeEdit)
+closeMod.addEventListener('click', closeEdit)
 newPost.addEventListener('click', makePost)
